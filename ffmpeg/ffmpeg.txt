@@ -1,0 +1,13 @@
+ffmpeg -y \
+-i video.mp4 \
+-hls_time 12 \       # video.mp4分割成每个小段多少秒
+-hls_key_info_file enc.keyinfo \
+-hls_playlist_type vod \   # vod 是点播，表示PlayList不会变
+-hls_segment_filename "http://localhost:8081/static/file%d.ts" \  #  每个小段的文件名
+playlist.m3u8   #  生成的m3u8文件
+
+# 加密
+ffmpeg -y -i video.mp4 -hls_time 12  -hls_key_info_file enc.keyinfo -hls_playlist_type vod  -hls_segment_filename "file%d.ts"  playlist.m3u8
+
+# 解密
+ffmpeg -protocol_whitelist file,tls,tcp,https,crypto -allowed_extensions ALL -i playlist.m3u8 -c copy m.mp4

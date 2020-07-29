@@ -1,0 +1,3 @@
+http://localhost:8081/static/encrypt.key  # enc.key的路径，使用http形式
+encrypt.key
+bd272633c9bdcbae6c41694d37a2786f  #  上面生成的iv
