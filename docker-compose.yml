@@ -1,0 +1,10 @@
+version: '2'
+services:
+  web:
+    container_name: go-demo
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./files:/app/files
