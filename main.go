@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/base64"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 )
@@ -33,13 +34,19 @@ func init() {
 
 	router.Static("/static", "./files")
 	router.Handle("GET", "/", Key)
+	router.Handle("POST", "/", Print)
+}
+
+func Print(c *gin.Context) {
+	body, _ := ioutil.ReadAll(c.Request.Body)
+	fmt.Println(string(body))
 }
 
 func Key(c *gin.Context) {
 	c.Header("Content-Type", "application/octet-stream")
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.Header("Content-Length", "16")
-	c.Writer.Write(decode("dLx417zgH898VUZOp6zJbg=="))
+	c.Writer.Write(decode("MyDH5i0pKq/J50xOaCZaHw=="))
 }
 
 func decode(s string) []byte {
